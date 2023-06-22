@@ -93,18 +93,44 @@
 
 
 
-    <style>
-        .image-container {
-            position: relative;
-            left: 385px;
-            top: 475px;
-        }
-    </style>
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-            
-                <body>
-                        <img src="https://s3.eu-west-1.amazonaws.com/redsys-prod/articles/eac8c6d69d1ce8ce0ff8824d/images/teaserImage_xxxx_croppedTeaserImage.jpg" class="image-container">
-                </body>
+    .container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Your page content goes here -->
+  </div>
+  
+  <img class="image" src="https://s3.eu-west-1.amazonaws.com/redsys-prod/articles/eac8c6d69d1ce8ce0ff8824d/images/teaserImage_xxxx_croppedTeaserImage.jpg" alt="image">
+</body>
+</html>
+ 
+
+
     <style>
         h2 {
             padding-left: 65px;
