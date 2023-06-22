@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #gameCanvas {
+        border: 1px solid black;
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+    <nav>
+        <ul>
+            <li><h4><a style="color: white" href="index.html">Back To Main Page</a></h4></li>
+        </ul>
+    </nav>
+
+
+    <script>
+      // Get the canvas element and its context
+      var canvas = document.getElementById("gameCanvas");
+      var ctx = canvas.getContext("2d");
+
+      // Set up initial variables
+      var tileSize = 20;
+      var totalSize = canvas.width / tileSize;
+      var snake = [
+        { x: 10, y: 10 },
+        { x: 9, y: 10 },
+        { x: 8, y: 10 },
+      ];
+      var dx = 1;
+      var dy = 0;
+      var apple = { x: 15, y: 10 };
+
+      // Function to draw the snake
+      function drawSnake() {
+        snake.forEach(function (segment) {
+          ctx.fillStyle = "#000";
+          ctx.fillRect(segment.x * tileSize, segment.y * tileSize, tileSize, tileSize);
+        });
+      }
+
+      // Function to draw the apple
+      function drawApple() {
+        ctx.fillStyle = "#f00";
+        ctx.fillRect(apple.x * tileSize, apple.y * tileSize, tileSize, tileSize);
+      }
+
+      // Function to move the snake
+      function moveSnake() {
+        // Create the new head segment
+        var head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+        // Add the new head to the beginning of the snake
+        snake.unshift(head);
+
+        // Check if the snake has eaten the apple
+        if (head.x === apple.x && head.y === apple.y) {
+          // Generate a new apple position
+          apple.x = Math.floor(Math.random() * totalSize);
+          apple.y = Math.floor(Math.random() * totalSize);
+        } else {
+          // Remove the tail segment
+          snake.pop();
+        }
+      }
+
+      // Function to check for collisions
+      function checkCollisions() {
+        var head = snake[0];
+
+        // Check if the snake hits the walls
+        if (head.x < 0 || head.y < 0 || head.x >= totalSize || head.y >= totalSize) {
+          return true;
+        }
+
+        // Check if the snake hits itself
+        for (var i = 1; i < snake.length; i++) {
+          if (head.x === snake[i].x && head.y === snake[i].y) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+
+      // Function to clear the canvas
+      function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+
+      // Function to update the game state
+      function update() {
+        clearCanvas();
+        moveSnake();
+        if (checkCollisions()) {
+          clearInterval(gameLoop);
+          alert("Game Over!");
+        }
+        drawSnake();
+        drawApple();
+      }
+
+      // Function to handle keydown events
+      function handleKeyDown(event) {
+        var key = event.keyCode;
+
+        // Change the snake's direction based on the key pressed
+        switch (key) {
+          case 37:
+            dx = -1;
+            dy = 0;
+            break;
+          case 38:
+            dx = 0;
+            dy = -1;
+            break;
+          case 39:
+            dx = 1;
+            dy = 0;
+            break;
+          case 40:
+            dx = 0;
+            dy = 1;
+            break;
+        }
+      }
+
+      // Start the game
+      var gameLoop = setInterval(update, 100);
+      document.addEventListener("keydown", handleKeyDown);
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
