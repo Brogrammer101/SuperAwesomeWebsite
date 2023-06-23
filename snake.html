@@ -134,7 +134,7 @@ html {
 }
 
 .foodPixel {
-    background-color: cyan;
+    background-color: red;
 }
 
 #gameOver {
@@ -408,7 +408,7 @@ function alive(head) {
   if (Snake.position[0][0] < 1 || Snake.position[0][0] > 40 || Snake.position[0][1] < 1 || Snake.position[0][1] > 40) {
     return false;
   }
-  // self collision
+  
   for (var i = 1; i < Snake.size; i++) {
     if ((Snake.position[0]).every(function(element,index) {
       return element === Snake.position[i][index];
@@ -440,7 +440,7 @@ function gameOver() {
 }
 
 function startGame() {
-    // reset game settings
+    
     Snake.size = 3;
     Snake.position = [[20,20],[20,19],[20,18]];
     Snake.direction = "r";
@@ -449,7 +449,7 @@ function startGame() {
     gamePoints = 0;
     Food.present = false;
     
-    // start game
+    
     createBoard();
     $(".overlay").hide();
     gameLoop();
